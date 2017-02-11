@@ -1,0 +1,30 @@
+{
+  "name": "kafka-node-countries",
+  "version": "0.0.2",
+  "description": "Node.js programs to read country records from CVS file (with random delay), produce them to Kafka, consume them from Kafka, aggregate in real time and publish results to console and file",
+  "main": "KafkaCountryProducer.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MaartenSmeets/kafka-workshop.git"
+  },
+  "keywords": [
+    "kafka",
+    "node",
+    "js",
+    "produce",
+    "consume"
+  ],
+  "author": "Lucas Jellema",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MaartenSmeets/kafka-workshop/issues"
+  },
+  "homepage": "https://github.com/MaartenSmeets/kafka-workshop#readme",
+  "dependencies": {
+    "csv-parse": "^1.2.0",
+    "kafka-node": "^1.3.4"
+  }
+}
