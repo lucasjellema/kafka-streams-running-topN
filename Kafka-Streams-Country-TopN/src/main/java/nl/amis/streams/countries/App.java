@@ -60,7 +60,7 @@ public class App {
         final Serde < Long > longSerde = Serdes.Long();
 
         // define countryMessageSerde
-        Map < String, Object > serdeProps = new HashMap < > ();
+        Map < String, Object > serdeProps = new HashMap < String, Object > ();
         final Serializer < CountryMessage > countryMessageSerializer = new JsonPOJOSerializer < > ();
         serdeProps.put("JsonPOJOClass", CountryMessage.class);
         countryMessageSerializer.configure(serdeProps, false);
@@ -71,7 +71,7 @@ public class App {
         final Serde < CountryMessage > countryMessageSerde = Serdes.serdeFrom(countryMessageSerializer, countryMessageDeserializer);
 
         // define countryTop3Serde
-        serdeProps = new HashMap<>();
+        serdeProps = new HashMap<String, Object>();
         final Serializer<CountryTop3> countryTop3Serializer = new JsonPOJOSerializer<>();
         serdeProps.put("JsonPOJOClass", CountryTop3.class);
         countryTop3Serializer.configure(serdeProps, false);
