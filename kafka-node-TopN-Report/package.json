@@ -1,0 +1,30 @@
+{
+  "name": "kafka-node-TopN-Report",
+  "version": "0.0.2",
+  "description": "Node.js programs to consume Top3 Country messages from a Kafka Topic and periodically report on the latest Top 3 standings",
+  "main": "KafkaCountryProducer.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lucasjellema/kafka-streams-running-topN"
+  },
+  "keywords": [
+    "kafka",
+    "node",
+    "js",
+    "produce",
+    "consume"
+  ],
+  "author": "Lucas Jellema",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lucasjellema/kafka-streams-running-topN/issues"
+  },
+  "homepage": "https://github.com/lucasjellema/kafka-streams-running-topN#readme",
+  "dependencies": {
+    "csv-parse": "^1.2.0",
+    "kafka-node": "^1.3.4"
+  }
+}

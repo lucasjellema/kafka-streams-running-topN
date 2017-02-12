@@ -21,6 +21,12 @@ import org.apache.kafka.streams.kstream.KTable;
 import org.apache.kafka.streams.kstream.KStreamBuilder;
 import org.apache.kafka.streams.processor.WallclockTimestampExtractor;
 
+import org.apache.kafka.streams.kstream.Window;
+import org.apache.kafka.streams.kstream.Windowed;
+import org.apache.kafka.streams.kstream.Windows;
+import org.apache.kafka.streams.kstream.TimeWindows;
+
+
 public class App {
     static public class CountryMessage {
         /* the JSON messages produced to the countries Topic have this structure:
@@ -49,10 +55,10 @@ public class App {
 
 
 
-    private static final String APP_ID = "countries-topn-streaming-analysis-app";
+    private static final String APP_ID = "countries-top3-kafka-streaming-analysis-app";
 
     public static void main(String[] args) {
-        System.out.println("Kafka Streams Demonstration");
+        System.out.println("Kafka Streams Top 3 Demonstration");
 
         // Create an instance of StreamsConfig from the Properties instance
         StreamsConfig config = new StreamsConfig(getProperties());
@@ -88,6 +94,14 @@ public class App {
                                        kStreamBuilder.stream(stringSerde, countryMessageSerde, "countries");
 
 
+
+// A hopping time window with a size of 5 minutes and an advance interval of 1 minute.
+// The window's name -- the string parameter -- is used to e.g. name the backing state store.
+long windowSizeMs = 5 * 60 * 1000L;
+long advanceMs =    1 * 60 * 1000L;
+TimeWindows.of("hopping-window-example", windowSizeMs).advanceBy(advanceMs);
+
+
         // THIS IS THE CORE OF THE STREAMING ANALYTICS:
         // top 3 largest countries per continent, published to topic Top3CountrySizePerContinent
         KTable<String,CountryTop3> top3PerContinent = countriesStream
@@ -118,6 +132,8 @@ public class App {
                         ,  stringSerde, countryTop3Serde
                         ,  "Top3LargestCountriesPerContinent"
                        );
+        // publish the Top3 messages to Kafka Topic Top3CountrySizePerContinent     
+        top3PerContinent.to(stringSerde, countryTop3Serde,  "Top3CountrySizePerContinent");
 
         // prepare Top3 messages to be printed to the console
         top3PerContinent.<String>mapValues((top3) -> {
@@ -129,8 +145,6 @@ public class App {
           }  
         )
              .print(stringSerde,stringSerde);
-        // publish the Top3 messages to Kafka Topic Top3CountrySizePerContinent     
-        top3PerContinent.to(stringSerde, countryTop3Serde,  "Top3CountrySizePerContinent");
 
         System.out.println("Starting Kafka Streams Countries Example");
         KafkaStreams kafkaStreams = new KafkaStreams(kStreamBuilder, config);
