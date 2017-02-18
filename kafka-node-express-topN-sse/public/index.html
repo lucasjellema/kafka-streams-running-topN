@@ -1,0 +1,61 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Continent and Country Overview</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>
+	  // assume that API service is published on same server that is the server of this HTML file
+    // send event to SSE stream 
+    /* "{\"nrs\":[{\"code\":\"FR\",\"name\":\"France\",\"population\":66836154,\"size\":643801,\"continent\":\"Europe\"},{\"code\":\"DE\",\"name\":\"Germany\",\"population\":80722792,\"size\":357022,\"continent\":\"Europe\"},{\"code\":\"FI\",\"name\":\"Finland\",\"population\":5498211,\"size\":338145,\"continent\":\"Europe\"},null]}"
+update all Sse Client with message {"nrs":[{"code":"FR","name":"France","population":66836154,"size":643801,"continent":"Europe"},{"code":"DE","name":"Germany","population":80722792,"size":357022,"continent":"Europe"},{"code":"FI","name":"Finland","population":5498211,"size":338145,"continent":"Europe"},null]}
+*/
+      var source = new EventSource("../topn/updates");
+      source.onmessage = function(event) {
+        var top3 = JSON.parse(event.data);
+        if (top3.continent) {
+        var nrs = top3.nrs;
+         var trID = "continent_"+top3.continent;
+         // find row in table with id equal to continent
+         var tr = document.getElementById(trID);
+         // if not found, then add a row
+         if (!tr) {
+           // table does not yet have a row for the continent, than add it 
+           // find table with continents
+           var tbl = document.getElementById("continentsTbl");
+           // Create an empty <tr> element and add it to the 1st position of the table:
+           tr = tbl.insertRow(1);
+           tr.setAttribute("id", trID, 0);
+           // Insert new cells (<td> elements) at the 1st and 2nd position of the "new" <tr> element:
+           var cell1 = tr.insertCell(0);
+           cell1.setAttribute("id",trID+"Continent",0);
+           var cell2 = tr.insertCell(1);
+           cell2.setAttribute("id",trID+"Top3",0);
+           // Add some text to the new cells:
+           cell1.innerHTML = top3.continent;
+         }// tr not found
+         var top3Cell = document.getElementById(trID+"Top3");
+         var list = "<ol>";
+         for (country of top3.nrs) {
+            if (country) {
+                list= list.concat( "<li>",country.name," (size ",country.size.toLocaleString(),")","</li>");
+            }
+         }//for
+         list= list+ "</ol>";
+         top3Cell.innerHTML = list;    
+        }// if continent    
+      };//onMessage
+    </script>    
+  </head>
+  <body>
+    <div id="loading">
+      <h2>Please wait...</h2>
+    </div>
+    <div id="result">
+      <table id="continentsTbl">
+        <tr><td>Continent</td><td>Top 3 Countries by Size</td></tr>
+      </table>
+    </div>
+  </body>
+</html>

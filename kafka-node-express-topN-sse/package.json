@@ -1,0 +1,20 @@
+{
+  "name": "kafka-streams-result-push-sse",
+  "version": "0.0.1",
+  "description": "A Data API that publishes some data sources from an Oracle Database",
+  "main": "topNreport.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "rest,express,sse,"
+  ],
+  "author": "Lucas Jellema",
+  "license": "ISC",
+  "devDependencies": {
+    
+  },
+  "dependencies": {
+    "express": "~4.13.4",
+    "kafka-node": "^1.3.4"  }
+}
