@@ -1,0 +1,19 @@
+{
+  "name": "kafka-node-mondgodb-topn",
+  "version": "0.0.1",
+  "description": "A Kafka Topic Consumer and Mongodb writer",
+  "main": "topNmongodbWriter.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "mongodb,kafka"
+  ],
+  "author": "Lucas Jellema",
+  "license": "ISC",
+  "devDependencies": {},
+  "dependencies": {
+    "kafka-node": "^1.3.4",
+    "mongodb": "^2.2.24"
+  }
+}
