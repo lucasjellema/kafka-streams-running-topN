@@ -11,7 +11,7 @@ Details on this application are discussed in the following blog articles:
 
 * Workshop Apache Kafka – presentation and hands on labs for getting started - https://technology.amis.nl/2017/02/10/workshop-apache-kafka-presentation-and-hands-on-labs-for-getting-started/
 
-Three applications in this repository:
+Four applications in this repository:
 
 kafka-node-countries: Node.JS application  (with kafka-node) that produces country messages from a CSV file with countries to the Kafka Topic countries
 
@@ -19,6 +19,7 @@ kafka-node-TopN-Report: Node.JS application (with kafka-node) that produces a pe
 
 Kafka-Streams-Country-TopN: Java application (with Kafka Streams) that produces the running Top 3 standings per continent of the largest countries, published to Kafka Topic Top3CountrySizePerContinent
 
+kafka-node-express-topN-sse: Node.JS application (with kafka-node) that consumes Top N messages from  Kafka Topic Top3CountrySizePerContinent and pushes them using Server Sent Events (SSE) to all SSE Clients that have registered through the Node Express framework
 
 To run these applications, go through the following steps:
 
@@ -45,6 +46,11 @@ To run these applications, go through the following steps:
 * npm install
 * node KafkaCountryStreamsConsumer.js
 
+5. kafka-node-express-topN-sse
+
+* cd kafka-node-express-topN-sse
+* npm install
+* node topNreport.js
 
 
 Note: the following prequisites have to be met:
